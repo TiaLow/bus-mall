@@ -1,0 +1,59 @@
+#header-image{
+  height: 100px;
+  width: 10%;
+}
+
+*{
+  float: left;
+}
+
+header{
+  background-color: lightblue;
+  width: 100%;
+}
+
+h1{
+  font-size: 40px;
+  margin-left: 10px;
+}
+
+aside{
+  background-color: lightcoral;
+  width: 25%;
+  margin-top: 10px;
+}
+
+h2{
+  font-size: 25px;
+}
+
+section > ul > li{
+  width: 32%;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+img{
+  height: 300px;
+  width: 300px;
+}
+
+section{
+  width: 75%;
+}
+
+#images{
+  background-color: rgb(243, 243, 139);
+  margin-top: 10px;
+}
+
+#words{
+  background-color: rgb(243, 156, 243);
+  margin-top: 40px;
+}
+
+footer{
+  background-color: lightseagreen;
+  width: 100%;
+  margin-top: 30px;
+}
