@@ -8,7 +8,7 @@ Code 201 - Week 3 - Lab 11 - *Bus Mall*
 - 
 
 ### Sources
-- Links from outside websites go here
+- Revisited this site for math randomizer reminder: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 
 ### Project Plan & Activity
 

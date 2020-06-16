@@ -8,7 +8,9 @@
 }
 
 header{
-  background-color: lightblue;
+  /* background-color: lightblue; */
+  border: solid black 1px;
+  margin: 10px 5px;
   width: 100%;
 }
 
@@ -18,16 +20,18 @@ h1{
 }
 
 aside{
-  background-color: lightcoral;
+  /* background-color: lightcoral; */
+  border: solid black 1px;
   width: 25%;
-  margin-top: 10px;
+  margin: 10px 5px;
+  height: 550px;
 }
 
 h2{
   font-size: 25px;
 }
 
-section > ul > li{
+/* section > ul > li{
   width: 32%;
   margin-left: 5px;
   margin-right: 5px;
@@ -36,24 +40,60 @@ section > ul > li{
 img{
   height: 300px;
   width: 300px;
-}
+} */
 
 section{
-  width: 75%;
+  border: solid black 1px;
+
 }
 
 #images{
   background-color: rgb(243, 243, 139);
+  /* border: solid black 1px; */
   margin-top: 10px;
+  width: 70%;
 }
+
+figure{
+  display: inline-block;
+  margin: 5px;
+  width: 30%;
+}
+
+section > figure > img{
+  border: solid black 1px;
+  height: 200px;
+  width: 200px;
+  
+}
+
+figcaption{
+  border: dotted black 1px;
+  margin-top: 4px;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 #words{
   background-color: rgb(243, 156, 243);
+  /* border: solid black 1px; */
   margin-top: 40px;
+  width: 70%;
 }
 
 footer{
-  background-color: lightseagreen;
+  /* background-color: lightseagreen; */
   width: 100%;
   margin-top: 30px;
+  font-size: 10px;
 }
