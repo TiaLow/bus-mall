@@ -6,7 +6,7 @@
 // 1. Create constructor function that creates an object associated with each product and has:
 // - NAME of product, FILE PATH of product
 
-// 2. Create algorithm that randomly generates three unique product images and displays side by side in browser
+// 2. Randomly generate three unique product images and displays side by side in browser
 
 // 3. Event listener to HTML section that holds images, when user clicks this area three new products are displayed
 
@@ -31,7 +31,9 @@
 //  - update it each time its been shown
 
 // 3. Create chart to display results visually
-//  -
+//  - two bar charts, one shows how many times it was clicked, one shows number of times it was shown
+//  - bar chart can go under product images
+//  - bar charts should only appear after all 25 rounds
 
 
 var totalClicks = 0;
@@ -124,6 +126,8 @@ function renderSomeRandomImages(){
     thirdRandom = randomize(0, Product.allProducts.length);
   }
 
+
+
   while (firstRandom === randomImageIndexes[0] || firstRandom === randomImageIndexes[1] || firstRandom === randomImageIndexes[2]){
     firstRandom = randomize(0, Product.allProducts.length);
   }
@@ -160,20 +164,28 @@ function renderSomeRandomImages(){
   // if the above works once, need to put this in the loop, but move target.innerHTML outside the foor loop
 
 
-  console.log(firstRandom, secondRandom, thirdRandom);
+  // console.log(firstRandom, secondRandom, thirdRandom);
 
   var imgLeft = document.getElementById('left');
+  var targetNameLeft = document.getElementById('left-name');
   var imgMiddle = document.getElementById('middle');
+  var targetNameMiddle = document.getElementById('middle-name');
   var imgRight = document.getElementById('right');
+  var targetNameRight = document.getElementById('right-name');
 
   imgLeft.src = Product.allProducts[firstRandom].imgSrc;
   Product.allProducts[firstRandom].shown++;
+  targetNameLeft.textContent = Product.allProducts[firstRandom].productName;
+
 
   imgMiddle.src = Product.allProducts[secondRandom].imgSrc;
   Product.allProducts[secondRandom].shown++;
+  targetNameMiddle.textContent = Product.allProducts[secondRandom].productName;
+
 
   imgRight.src = Product.allProducts[thirdRandom].imgSrc;
   Product.allProducts[thirdRandom].shown++;
+  targetNameRight.textContent = Product.allProducts[thirdRandom].productName;
 
 }
 renderSomeRandomImages();

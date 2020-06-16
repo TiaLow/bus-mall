@@ -57,6 +57,11 @@ section > figure > img{
   height: 100%;  
 }
 
+figcaption{
+  margin-top: 5px;
+  font-weight: bold;
+}
+
 /* figcaption{
   border: dotted black 1px;
   margin-top: 4px;
