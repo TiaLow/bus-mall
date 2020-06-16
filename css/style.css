@@ -1,6 +1,6 @@
 #header-image{
   height: 100px;
-  width: 10%;
+  width: 100px;
 }
 
 *{
@@ -43,7 +43,7 @@ img{
 } */
 
 section{
-  border: solid black 1px;
+  /* border: solid black 1px; */
 
 }
 
@@ -75,20 +75,16 @@ figcaption{
 
 
 
-
-
-
-
-
-
-
-
-
 #words{
-  background-color: rgb(243, 156, 243);
-  /* border: solid black 1px; */
+  /* background-color: rgb(243, 156, 243); */
+  border: solid black 1px;
   margin-top: 40px;
   width: 70%;
+}
+
+p{
+  font-size: 30px;
+  font-style: italic;
 }
 
 footer{
