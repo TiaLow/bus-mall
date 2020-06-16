@@ -42,11 +42,6 @@ img{
   width: 300px;
 } */
 
-section{
-  /* border: solid black 1px; */
-
-}
-
 #images{
   background-color: rgb(243, 243, 139);
   /* border: solid black 1px; */
@@ -67,11 +62,11 @@ section > figure > img{
   
 }
 
-figcaption{
+/* figcaption{
   border: dotted black 1px;
   margin-top: 4px;
   text-align: center;
-}
+} */
 
 
 
