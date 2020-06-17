@@ -35,6 +35,16 @@
 //  - bar chart can go under product images
 //  - bar charts should only appear after all 25 rounds
 
+//WEDS PLAN-
+
+// Today I need to make pata persistenyl track totals between page refreshes, so I can keep track of aggregate number of votes
+//  1. Implement local storage into my current application
+//  2. Make sure data persists across both browser refreshes and resets
+
+//  - store products array into local storage as a formatted JSON string
+//  - retrieve products array from local storage and then utilize JSON.Parse() function. I will have to send each item in the array back through constructor function
+
+
 
 var totalClicks = 0;
 var maxClicks = 25;

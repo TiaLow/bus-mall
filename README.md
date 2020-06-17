@@ -27,6 +27,11 @@ Code 201 - Week 3 - Lab 11 - *Bus Mall*
 - Discovered some typos I had in rendering images, not correct file paths
 - Move function to render images to before randomizer so that images would be on page when user arrives
 - Worked through creation of new array in order to make sure no img is displayed two times in a row
+- Created chart using canvas element, made bar chart that displays both times clicked and times shown
+- Attempted to turn bars into patterns (instead of solid color) but ran into a roadblock, sorted it out in Weds morning code review
+
+#### Weds, June 17
+- Today I need to work with local storage to make the data persistently track totals between page refreshes, so I can keep track of aggregate number of votes.
 
 
 Original lo-fi wireframe:
