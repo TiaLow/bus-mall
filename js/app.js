@@ -145,8 +145,6 @@ function renderSomeRandomImages(){
   randomImageIndexes = [firstRandom, secondRandom, thirdRandom];
 
 
-
-
   //   // 1.
 
   //   var target = document.getElementById('images');
@@ -209,10 +207,8 @@ renderSomeRandomImages();
 
 
 function renderTheChart(){
-  console.log('about to render the chart');
+  // console.log('charting....charting.....');
 
-
-  // find all the color stuff and replace with product stuff
 
   var productLabels = [];
 
@@ -239,6 +235,10 @@ function renderTheChart(){
         label: '# of clicks',
         data: productClicks,
         backgroundColor: [
+          //https://github.com/ashiguruma/patternomaly
+          // pattern.draw('diamond', '#cc65fe'),
+          // pattern.draw('diamond', '#cc65fe'),
+          // pattern.draw('diamond', '#cc65fe'),
           'rgba(75, 192, 192, 0.2)',
           'rgba(75, 192, 192, 0.2)',
           'rgba(75, 192, 192, 0.2)',
