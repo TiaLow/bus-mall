@@ -37,7 +37,7 @@
 
 
 var totalClicks = 0;
-var maxClicks = 10;
+var maxClicks = 5;
 
 function randomize(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -87,8 +87,8 @@ new Product('Undrinkable Wine Glass', 'img/wine-glass.jpg');
 
 //------------------------------------------------- EVENT LISTENER FOR CLICKS
 
-var productImageSection = document.getElementById('product-images'); //target
-productImageSection.addEventListener('click', handleProductClicks); //add listener with type and callback function
+var productImageSection = document.getElementById('product-images');
+productImageSection.addEventListener('click', handleProductClicks);
 
 function handleProductClicks(event){
   if(event.target.tagName === 'IMG'){
@@ -105,6 +105,9 @@ function handleProductClicks(event){
   if(totalClicks === maxClicks){
     productImageSection.removeEventListener('click', handleProductClicks);
     renderResultsToList();
+
+    renderTheChart();
+
   }
 
   renderSomeRandomImages();
@@ -125,7 +128,6 @@ function renderSomeRandomImages(){
     secondRandom = randomize(0, Product.allProducts.length);
     thirdRandom = randomize(0, Product.allProducts.length);
   }
-
 
 
   while (firstRandom === randomImageIndexes[0] || firstRandom === randomImageIndexes[1] || firstRandom === randomImageIndexes[2]){
@@ -204,5 +206,107 @@ function renderResultsToList(){
     list.appendChild(listItem);
   }
 }
+
+
+function renderTheChart(){
+  console.log('about to render the chart');
+
+
+  // find all the color stuff and replace with product stuff
+
+  var productLabels = [];
+
+  for (var i = 0; i < Product.allProducts.length; i++){
+    productLabels.push(Product.allProducts[i].productName);
+  }
+
+  var productClicks = [];
+  for (i = 0; i < Product.allProducts.length; i++){
+    productClicks.push(Product.allProducts[i].clicked);
+  }
+
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: productLabels,
+      datasets: [{
+        label: '# of clicks',
+        data: productClicks,
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)'
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            max: 20,
+            min: 0,
+            stepSize: 1
+            // beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
 
 

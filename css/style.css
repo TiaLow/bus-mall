@@ -32,8 +32,6 @@ h2{
   font-size: 25px;
 }
 
-
-
 #product-images{
   background-color: rgb(243, 243, 139);
   box-sizing: border-box;
@@ -61,14 +59,6 @@ figcaption{
   margin-top: 5px;
   font-weight: bold;
 }
-
-/* figcaption{
-  border: dotted black 1px;
-  margin-top: 4px;
-  text-align: center;
-} */
-
-
 
 #words{
   background-color: rgb(243, 156, 243);
