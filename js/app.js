@@ -42,19 +42,19 @@
 //  2. Make sure data persists across both browser refreshes and resets
 
 //  - store products array into local storage as a formatted JSON string
-//  - retrieve products array from local storage and then utilize JSON.Parse() function. I will have to send each item in the array back through constructor function
+//  - retrieve products array from local storage and then utilize JSON.Parse() function.
 
 // goal today is to preserve the votes in between refreshes
 // we will do this by saving them into local storage and retrieving them
 // retrieve the goat data before you start clicking
-// when should we save our products? at every click (in cause user exits out of browser midway through game)
+// when should we save our products? at every click (in case user exits out of browser midway through game)
 
 
 
 
 
 var totalClicks = 0;
-var maxClicks = 10; //CHANGE BACK TO 25 WHEN DONE
+var maxClicks = 15; //CHANGE BACK TO 25 WHEN DONE
 
 function randomize(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -264,8 +264,13 @@ function renderTheChart(){
   }
 
 
+  // var img = new Image();
+  // img.src = 'img/bag.jpg';
+  // img.onload = function() {
+
   var ctx = document.getElementById('myChart').getContext('2d');
-  var myChart = new Chart(ctx, {
+  // var fillPattern = ctx.createPattern(img, 'repeat');
+  var mixedChart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: productLabels,
@@ -280,6 +285,7 @@ function renderTheChart(){
           // pattern.draw('diamond', '#cc65fe'),
           // pattern.draw('diamond', '#cc65fe'),
           // pattern.draw('diamond', '#cc65fe'),
+          // fillPattern,
           'rgba(75, 192, 192, 0.2)',
           'rgba(75, 192, 192, 0.2)',
           'rgba(75, 192, 192, 0.2)',
@@ -324,10 +330,11 @@ function renderTheChart(){
           'rgba(75, 192, 192, 1)'
         ],
         borderWidth: 1
-      },
-      {
+      },{
         label: '# times shown',
         data: productShown,
+        type: 'line',
+        fill: false,
         backgroundColor: [
           'rgba(231, 68, 249, 0.2)',
           'rgba(231, 68, 249, 0.2)',
@@ -379,7 +386,7 @@ function renderTheChart(){
       scales: {
         yAxes: [{
           ticks: {
-            max: 20,
+            max: 50,
             min: 0,
             stepSize: 1
             // beginAtZero: true
