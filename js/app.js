@@ -95,6 +95,16 @@ function handleProductClicks(event){
     totalClicks++;
   }
 
+  //save products to local storage
+  // 1. stringify it
+
+  //2. save it (setItem)
+
+
+
+
+
+
   var targetSrc = event.target.getAttribute('src');
   // debugger;
   for (var i = 0; i < Product.allProducts.length; i++){
@@ -346,16 +356,17 @@ function renderTheChart(){
       }
     }
   });
-
-
-
-
-
-
-
-
-
 }
+
+
+
+// goal today is to preserve the votes in between refreshes
+// we will do this by saving them into local storage and retrieving them
+
+
+// retrieve the goat data before you start clicking
+
+// when should we save our products? at every click (in cause user exits out of browser midway through game)
 
 
 
