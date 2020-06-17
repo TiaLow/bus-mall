@@ -211,20 +211,16 @@ function renderTheChart(){
 
 
   var productLabels = [];
+  var productClicks = [];
+  var productShown = [];
 
   for (var i = 0; i < Product.allProducts.length; i++){
-    productLabels.push(Product.allProducts[i].productName);
+    var prod= Product.allProducts[i];
+    productLabels.push(prod.productName);
+    productClicks.push(prod.clicked);
+    productShown.push(prod.shown);
   }
 
-  var productClicks = [];
-  for (i = 0; i < Product.allProducts.length; i++){
-    productClicks.push(Product.allProducts[i].clicked);
-  }
-
-  var productShown = [];
-  for (i = 0; i < Product.allProducts.length; i++){
-    productShown.push(Product.allProducts[i].shown);
-  }
 
   var ctx = document.getElementById('myChart').getContext('2d');
   var myChart = new Chart(ctx, {
@@ -235,6 +231,9 @@ function renderTheChart(){
         label: '# of clicks',
         data: productClicks,
         backgroundColor: [
+
+          //TODO- make the product image repeat the number of times it was clicked, to be the bar graph
+
           //https://github.com/ashiguruma/patternomaly
           // pattern.draw('diamond', '#cc65fe'),
           // pattern.draw('diamond', '#cc65fe'),
