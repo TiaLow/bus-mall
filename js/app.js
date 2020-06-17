@@ -6,7 +6,7 @@
 // 1. Create constructor function that creates an object associated with each product and has:
 // - NAME of product, FILE PATH of product
 
-// 2. Create algorithm that randomly generates three unique product images and displays side by side in browser
+// 2. Randomly generate three unique product images and displays side by side in browser
 
 // 3. Event listener to HTML section that holds images, when user clicks this area three new products are displayed
 
@@ -31,11 +31,13 @@
 //  - update it each time its been shown
 
 // 3. Create chart to display results visually
-//  -
+//  - two bar charts, one shows how many times it was clicked, one shows number of times it was shown
+//  - bar chart can go under product images
+//  - bar charts should only appear after all 25 rounds
 
 
 var totalClicks = 0;
-var maxClicks = 10;
+var maxClicks = 25;
 
 function randomize(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -85,8 +87,8 @@ new Product('Undrinkable Wine Glass', 'img/wine-glass.jpg');
 
 //------------------------------------------------- EVENT LISTENER FOR CLICKS
 
-var productImageSection = document.getElementById('product-images'); //target
-productImageSection.addEventListener('click', handleProductClicks); //add listener with type and callback function
+var productImageSection = document.getElementById('product-images');
+productImageSection.addEventListener('click', handleProductClicks);
 
 function handleProductClicks(event){
   if(event.target.tagName === 'IMG'){
@@ -102,7 +104,10 @@ function handleProductClicks(event){
   }
   if(totalClicks === maxClicks){
     productImageSection.removeEventListener('click', handleProductClicks);
-    renderResultsToList();
+    // renderResultsToList();
+
+    renderTheChart();
+
   }
 
   renderSomeRandomImages();
@@ -124,6 +129,7 @@ function renderSomeRandomImages(){
     thirdRandom = randomize(0, Product.allProducts.length);
   }
 
+
   while (firstRandom === randomImageIndexes[0] || firstRandom === randomImageIndexes[1] || firstRandom === randomImageIndexes[2]){
     firstRandom = randomize(0, Product.allProducts.length);
   }
@@ -137,8 +143,6 @@ function renderSomeRandomImages(){
   }
 
   randomImageIndexes = [firstRandom, secondRandom, thirdRandom];
-
-
 
 
   //   // 1.
@@ -160,37 +164,202 @@ function renderSomeRandomImages(){
   // if the above works once, need to put this in the loop, but move target.innerHTML outside the foor loop
 
 
-  console.log(firstRandom, secondRandom, thirdRandom);
+  // console.log(firstRandom, secondRandom, thirdRandom);
 
   var imgLeft = document.getElementById('left');
+  var targetNameLeft = document.getElementById('left-name');
   var imgMiddle = document.getElementById('middle');
+  var targetNameMiddle = document.getElementById('middle-name');
   var imgRight = document.getElementById('right');
+  var targetNameRight = document.getElementById('right-name');
 
   imgLeft.src = Product.allProducts[firstRandom].imgSrc;
   Product.allProducts[firstRandom].shown++;
+  targetNameLeft.textContent = Product.allProducts[firstRandom].productName;
+
 
   imgMiddle.src = Product.allProducts[secondRandom].imgSrc;
   Product.allProducts[secondRandom].shown++;
+  targetNameMiddle.textContent = Product.allProducts[secondRandom].productName;
+
 
   imgRight.src = Product.allProducts[thirdRandom].imgSrc;
   Product.allProducts[thirdRandom].shown++;
+  targetNameRight.textContent = Product.allProducts[thirdRandom].productName;
 
 }
 renderSomeRandomImages();
 
 //-------------------------------------------------- RENDER RESULTS TO LIST
 
-function renderResultsToList(){
-  var list = document.getElementById('results-list');
+// function renderResultsToList(){
+//   var list = document.getElementById('results-list');
 
 
-  for (var i=0; i < Product.allProducts.length; i++){
-    var listItem = document.createElement('li');
+//   for (var i=0; i < Product.allProducts.length; i++){
+//     var listItem = document.createElement('li');
 
-    listItem.textContent = (Product.allProducts[i].productName + ' product: ' + Product.allProducts[i].clicked + ' votes, displayed: ' + Product.allProducts[i].shown + ' times');
+//     listItem.textContent = (Product.allProducts[i].productName + ' product: ' + Product.allProducts[i].clicked + ' votes, displayed: ' + Product.allProducts[i].shown + ' times');
 
-    list.appendChild(listItem);
+//     list.appendChild(listItem);
+//   }
+// }
+
+
+function renderTheChart(){
+  // console.log('charting....charting.....');
+
+
+  var productLabels = [];
+
+  for (var i = 0; i < Product.allProducts.length; i++){
+    productLabels.push(Product.allProducts[i].productName);
   }
+
+  var productClicks = [];
+  for (i = 0; i < Product.allProducts.length; i++){
+    productClicks.push(Product.allProducts[i].clicked);
+  }
+
+  var productShown = [];
+  for (i = 0; i < Product.allProducts.length; i++){
+    productShown.push(Product.allProducts[i].shown);
+  }
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: productLabels,
+      datasets: [{
+        label: '# of clicks',
+        data: productClicks,
+        backgroundColor: [
+          //https://github.com/ashiguruma/patternomaly
+          // pattern.draw('diamond', '#cc65fe'),
+          // pattern.draw('diamond', '#cc65fe'),
+          // pattern.draw('diamond', '#cc65fe'),
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(75, 192, 192, 0.2)'
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(75, 192, 192, 1)'
+        ],
+        borderWidth: 1
+      },
+      {
+        label: '# times shown',
+        data: productShown,
+        backgroundColor: [
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)'
+        ],
+        borderColor: [
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            max: 20,
+            min: 0,
+            stepSize: 1
+            // beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
 
 

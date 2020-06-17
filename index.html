@@ -21,10 +21,11 @@
   <main>
 
 
-    <aside>
+    <!-- <aside>
 
       <article id='results'>
         <h2>Results</h2>
+        <h3>...please see results below : )</h3>
 
         <ul id='results-list'>
           <li></li>
@@ -35,7 +36,7 @@
         </ul>
       </article>
 
-    </aside>
+    </aside> -->
      
 <!-- //!!!!!!!!!!!!!!! REVISIT THE BELOW -->
 <!-- <figure>
@@ -48,17 +49,17 @@
 
       <figure>
         <img id="left" src="" alt="product picture">
-        <!-- <figcaption>R2-D2 luggage</figcaption> -->
+        <figcaption id="left-name"></figcaption>
       </figure>
 
       <figure>
         <img id="middle" src="" alt="product picture">
-        <!-- <figcaption>Banana slicer</figcaption> -->
+        <figcaption id="middle-name"></figcaption>
       </figure>
 
       <figure>
         <img id="right" src="" alt="product picture">
-        <!-- <figcaption>Bathroom tablet stand</figcaption> -->
+        <figcaption id="right-name"></figcaption>
       </figure>
       
     </section>
@@ -77,12 +78,19 @@
 
     </section>
 
+
+
+    <canvas id="myChart" width="400" height="400"></canvas>
+
+
+
   </main>
 
   <footer> &copy; 2020 Millenium Market Research Company
 
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
