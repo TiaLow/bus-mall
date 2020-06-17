@@ -37,7 +37,7 @@
 
 
 var totalClicks = 0;
-var maxClicks = 5;
+var maxClicks = 25;
 
 function randomize(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -104,7 +104,7 @@ function handleProductClicks(event){
   }
   if(totalClicks === maxClicks){
     productImageSection.removeEventListener('click', handleProductClicks);
-    renderResultsToList();
+    // renderResultsToList();
 
     renderTheChart();
 
@@ -194,18 +194,18 @@ renderSomeRandomImages();
 
 //-------------------------------------------------- RENDER RESULTS TO LIST
 
-function renderResultsToList(){
-  var list = document.getElementById('results-list');
+// function renderResultsToList(){
+//   var list = document.getElementById('results-list');
 
 
-  for (var i=0; i < Product.allProducts.length; i++){
-    var listItem = document.createElement('li');
+//   for (var i=0; i < Product.allProducts.length; i++){
+//     var listItem = document.createElement('li');
 
-    listItem.textContent = (Product.allProducts[i].productName + ' product: ' + Product.allProducts[i].clicked + ' votes, displayed: ' + Product.allProducts[i].shown + ' times');
+//     listItem.textContent = (Product.allProducts[i].productName + ' product: ' + Product.allProducts[i].clicked + ' votes, displayed: ' + Product.allProducts[i].shown + ' times');
 
-    list.appendChild(listItem);
-  }
-}
+//     list.appendChild(listItem);
+//   }
+// }
 
 
 function renderTheChart(){
@@ -225,6 +225,10 @@ function renderTheChart(){
     productClicks.push(Product.allProducts[i].clicked);
   }
 
+  var productShown = [];
+  for (i = 0; i < Product.allProducts.length; i++){
+    productShown.push(Product.allProducts[i].shown);
+  }
 
   var ctx = document.getElementById('myChart').getContext('2d');
   var myChart = new Chart(ctx, {
@@ -277,6 +281,55 @@ function renderTheChart(){
           'rgba(75, 192, 192, 1)',
           'rgba(75, 192, 192, 1)',
           'rgba(75, 192, 192, 1)'
+        ],
+        borderWidth: 1
+      },
+      {
+        label: '# times shown',
+        data: productShown,
+        backgroundColor: [
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)',
+          'rgba(231, 68, 249, 0.2)'
+        ],
+        borderColor: [
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)',
+          'rgba(231, 68, 249, 1)'
         ],
         borderWidth: 1
       }]
