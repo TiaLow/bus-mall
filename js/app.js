@@ -48,6 +48,7 @@
 // we will do this by saving them into local storage and retrieving them
 // retrieve the goat data before you start clicking
 // when should we save our products? at every click (in case user exits out of browser midway through game)
+//
 
 
 

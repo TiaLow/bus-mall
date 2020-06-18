@@ -27,6 +27,7 @@ header{
   text-shadow: 
       4px 4px 0px #d5d5d5, 
       5px 5px 0px rgba(0, 0, 0, 0.2);
+  /* https://learn.shayhowe.com/advanced-html-css/transitions-animations/ */
   transition-property: color;
   transition-duration: .5s;
   transition-timing-function: linear;
@@ -70,6 +71,8 @@ figure{
   width: 30%;
   height: 275px;
 }
+
+/* https://learn.shayhowe.com/advanced-html-css/transitions-animations/ */
 
 @keyframes flash{
   50% {
