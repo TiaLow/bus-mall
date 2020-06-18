@@ -1,24 +1,37 @@
-#header-image{
-  height: 100px;
-  width: 100px;
-}
-
 *{
   float: left;
 }
 
 header{
   /* background-color: lightblue; */
-  border: solid black 1px;
-  margin: 10px 20px;
+  /* border: solid black 1px; */
+  margin: 20px 20px;
   width: 65%;
 }
 
-h1{
-  font-size: 40px;
-  margin-left: 10px;
+#header-image{
+  height: 100px;
+  width: 100px;
 }
 
+#h-one{
+  font-size: 65px;
+  margin-left: 10px;
+  font-weight: bold;
+  font-family: 'MuseoModerno', cursive;
+  /* https://codepen.io/juanbrujo/pen/yGpAK */
+  color: #EB2813;
+    /* background-color: #d5d5d5; */
+    letter-spacing: .05em;
+    text-shadow: 
+      4px 4px 0px #d5d5d5, 
+      5px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+#h-two{
+  font-size: 40px;
+  font-family: 'MuseoModerno', cursive;
+}
 /* aside{ */
   /* background-color: lightcoral; */
   /* border: solid black 1px; */
@@ -36,7 +49,7 @@ h2{
 #product-images{
   /* background-color: rgb(243, 243, 139); */
   box-sizing: border-box;
-  width: 70%;
+  width: 100%;
   margin-top: 10px;
   margin-left: 20px;
  
@@ -45,10 +58,13 @@ h2{
 figure{
   display: inline-block;
   box-sizing: border-box;
-  margin: 5px;
+  margin: 10px;
   width: 30%;
   height: 275px;
-  border: solid black 1px;
+  border: double black 3px;
+  border-radius: 15px;
+  /* overflow: hidden; */
+  /* I WANT TO HIDE OVERFLOW SO THE PICS ARENT OVER ROUNDED CORNERS, BUT DOING THAT MAKES CAPTION GO AWAY */
 }
 
 section > figure > img{
@@ -58,22 +74,23 @@ section > figure > img{
 }
 
 figcaption{
-  margin-top: 5px;
-  font-weight: bold;
+  margin-top: 10px;
+  font-weight: bolder;
+  font-family: 'Roboto', sans-serif;
 }
 
 #words{
   /* background-color: rgb(243, 156, 243); */
   /* border: solid black 1px; */
   margin-top: 40px;
-  margin-left: 20px;
+  margin-left: 24px;
   padding: 10px;
-  width: 65%;
+  width: 100;
 }
 
 p{
   font-size: 30px;
-  font-style: italic;
+  font-family: 'Roboto', sans-serif;
 }
 
 footer{
