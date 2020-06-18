@@ -35,9 +35,26 @@
 //  - bar chart can go under product images
 //  - bar charts should only appear after all 25 rounds
 
+//WEDS PLAN-
+
+// Today I need to make data persistently track totals between page refreshes, so I can keep track of aggregate number of votes
+//  1. Implement local storage into my current application
+//  2. Make sure data persists across both browser refreshes and resets
+
+//  - store products array into local storage as a formatted JSON string
+//  - retrieve products array from local storage and then utilize JSON.Parse() function.
+
+// goal today is to preserve the votes in between refreshes
+// we will do this by saving them into local storage and retrieving them
+// retrieve the goat data before you start clicking
+// when should we save our products? at every click (in case user exits out of browser midway through game)
+
+
+
+
 
 var totalClicks = 0;
-var maxClicks = 25;
+var maxClicks = 15; //CHANGE BACK TO 25 WHEN DONE
 
 function randomize(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -57,7 +74,7 @@ function Product(productNameParameter, imageSource){
   Product.allProducts.push(this);
 }
 
-Product.allProducts = [];
+Product.allProducts = []; //GOAL IS TO SAVE THIS INTO LOCAL STORAGE
 
 //------------------------------------------------ NEW INSTANCES ---------------------
 
@@ -66,24 +83,37 @@ new Product('Banana Slicer', 'img/banana.jpg');
 new Product('Bathroom Tablet', 'img/bathroom.jpg');
 new Product('Toeless Boots', 'img/boots.jpg');
 new Product('All-in-One Breakfast', 'img/breakfast.jpg');
-
 new Product('Meatball Bubble Gum', 'img/bubblegum.jpg');
 new Product('Curved Chair', 'img/chair.jpg');
 new Product('Gnarly Winged Toy', 'img/cthulhu.jpg');
 new Product('Dog Duck Whistle', 'img/dog-duck.jpg');
 new Product('Dragon Meat', 'img/dragon.jpg');
-
 new Product('Pen Utensil', 'img/pen.jpg');
 new Product('Pet Sweepers', 'img/pet-sweep.jpg');
 new Product('Pizza Scissors', 'img/scissors.jpg');
 new Product('Shark Sleeping Bag', 'img/shark.jpg');
 new Product('Baby Sweeper', 'img/sweep.png');
-
 new Product('Tauntaun Sleeping Bag', 'img/tauntaun.jpg');
 new Product('Unicorn Meat', 'img/unicorn.jpg');
 new Product('Tentacle USB', 'img/usb.gif');
 new Product('Closed System Watering Can', 'img/water-can.jpg');
 new Product('Undrinkable Wine Glass', 'img/wine-glass.jpg');
+
+
+// ------------------------------------------------ RETRIEVE FROM STORAGE
+
+// 1. retrieve with getItem
+var stringyProductsFromStorage = localStorage.getItem('storedProducts');
+
+// 2. parse/unstringify object with JSON.parse
+
+var productsFromStorage = JSON.parse(stringyProductsFromStorage);
+console.log('prods from storage, fingers crossed', productsFromStorage);
+
+if(productsFromStorage){
+  Product.allProducts = productsFromStorage;
+}
+
 
 //------------------------------------------------- EVENT LISTENER FOR CLICKS
 
@@ -95,16 +125,6 @@ function handleProductClicks(event){
     totalClicks++;
   }
 
-  //save products to local storage
-  // 1. stringify it
-
-  //2. save it (setItem)
-
-
-
-
-
-
   var targetSrc = event.target.getAttribute('src');
   // debugger;
   for (var i = 0; i < Product.allProducts.length; i++){
@@ -112,15 +132,27 @@ function handleProductClicks(event){
     if(Product.allProducts[i].imgSrc === targetSrc)
       Product.allProducts[i].clicked++;
   }
+
+  renderSomeRandomImages();
+
   if(totalClicks === maxClicks){
     productImageSection.removeEventListener('click', handleProductClicks);
     // renderResultsToList();
-
     renderTheChart();
-
   }
 
-  renderSomeRandomImages();
+
+
+  //----------------------------------------- SAVE THE GOODS TO LOCAL STORAGE
+  //1. stringify it
+
+  var stringyProductCollection = JSON.stringify(Product.allProducts);
+  // console.log('stringy array, fingers crossed', stringyProductCollection);
+
+  //2. save that shiz
+  localStorage.setItem('storedProducts', stringyProductCollection);
+
+
 }
 
 //-------------------------------------------- RENDER IMAGES
@@ -138,7 +170,6 @@ function renderSomeRandomImages(){
     secondRandom = randomize(0, Product.allProducts.length);
     thirdRandom = randomize(0, Product.allProducts.length);
   }
-
 
   while (firstRandom === randomImageIndexes[0] || firstRandom === randomImageIndexes[1] || firstRandom === randomImageIndexes[2]){
     firstRandom = randomize(0, Product.allProducts.length);
@@ -172,7 +203,6 @@ function renderSomeRandomImages(){
   //   firstProduct.shown++;
 
   // if the above works once, need to put this in the loop, but move target.innerHTML outside the foor loop
-
 
   // console.log(firstRandom, secondRandom, thirdRandom);
 
@@ -232,8 +262,13 @@ function renderTheChart(){
   }
 
 
+  // var img = new Image();
+  // img.src = 'img/bag.jpg';
+  // img.onload = function() {
+
   var ctx = document.getElementById('myChart').getContext('2d');
-  var myChart = new Chart(ctx, {
+  // var fillPattern = ctx.createPattern(img, 'repeat');
+  var mixedChart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: productLabels,
@@ -248,97 +283,99 @@ function renderTheChart(){
           // pattern.draw('diamond', '#cc65fe'),
           // pattern.draw('diamond', '#cc65fe'),
           // pattern.draw('diamond', '#cc65fe'),
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(75, 192, 192, 0.2)'
+          // fillPattern,
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)',
+          'rgba(235, 40, 19, 0.2)'
         ],
         borderColor: [
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(75, 192, 192, 1)'
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)',
+          'rgba(235, 40, 19, 1)'
         ],
         borderWidth: 1
-      },
-      {
+      },{
         label: '# times shown',
         data: productShown,
+        type: 'line',
+        fill: false,
         backgroundColor: [
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)',
-          'rgba(231, 68, 249, 0.2)'
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)',
+          'rgba(48, 93, 235, 0.2)'
         ],
         borderColor: [
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)',
-          'rgba(231, 68, 249, 1)'
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)',
+          'rgba(48, 93, 235, 1)'
         ],
         borderWidth: 1
       }]
@@ -347,7 +384,7 @@ function renderTheChart(){
       scales: {
         yAxes: [{
           ticks: {
-            max: 20,
+            max: 50,
             min: 0,
             stepSize: 1
             // beginAtZero: true
@@ -359,14 +396,6 @@ function renderTheChart(){
 }
 
 
-
-// goal today is to preserve the votes in between refreshes
-// we will do this by saving them into local storage and retrieving them
-
-
-// retrieve the goat data before you start clicking
-
-// when should we save our products? at every click (in cause user exits out of browser midway through game)
 
 
 
