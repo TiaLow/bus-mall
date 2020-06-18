@@ -55,7 +55,7 @@
 
 
 var totalClicks = 0;
-var maxClicks = 15; //CHANGE BACK TO 25 WHEN DONE
+var maxClicks = 25; //CHANGE BACK TO 25 WHEN DONE
 
 function randomize(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
