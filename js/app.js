@@ -1,7 +1,5 @@
 'use strict';
 
-// console.log('Sup!');
-
 // MONDAY PLAN-
 // 1. Create constructor function that creates an object associated with each product and has:
 // - NAME of product, FILE PATH of product
@@ -44,27 +42,17 @@
 //  - store products array into local storage as a formatted JSON string
 //  - retrieve products array from local storage and then utilize JSON.Parse() function.
 
-// goal today is to preserve the votes in between refreshes
-// we will do this by saving them into local storage and retrieving them
-// retrieve the goat data before you start clicking
-// when should we save our products? at every click (in case user exits out of browser midway through game)
-//
-
-
-
-
+//---------------------------------------------------------------------------------
 
 var totalClicks = 0;
-var maxClicks = 25; //CHANGE BACK TO 25 WHEN DONE
+var maxClicks = 25;
 
 function randomize(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
 
-//----------------------------------------------------------------------------------
 //--------------------------------------------- CONSTRUCTOR FUNCTION ---------------
-//----------------------------------------------------------------------------------
 
 function Product(productNameParameter, imageSource){
   this.clicked = 0;
@@ -75,7 +63,8 @@ function Product(productNameParameter, imageSource){
   Product.allProducts.push(this);
 }
 
-Product.allProducts = []; //GOAL IS TO SAVE THIS INTO LOCAL STORAGE
+// empty array to contain all product information
+Product.allProducts = [];
 
 //------------------------------------------------ NEW INSTANCES ---------------------
 
@@ -101,16 +90,12 @@ new Product('Closed System Watering Can', 'img/water-can.jpg');
 new Product('Undrinkable Wine Glass', 'img/wine-glass.jpg');
 
 
-// ------------------------------------------------ RETRIEVE FROM STORAGE
-
-// 1. retrieve with getItem
+// retrieve information from localStorage with getItem, parse/unstringify with JSON.parse
 var stringyProductsFromStorage = localStorage.getItem('storedProducts');
 
-// 2. parse/unstringify object with JSON.parse
-
 var productsFromStorage = JSON.parse(stringyProductsFromStorage);
-console.log('prods from storage, fingers crossed', productsFromStorage);
 
+// the below happens only if there are things in localStorage
 if(productsFromStorage){
   Product.allProducts = productsFromStorage;
 }
@@ -121,13 +106,15 @@ if(productsFromStorage){
 var productImageSection = document.getElementById('product-images');
 productImageSection.addEventListener('click', handleProductClicks);
 
+// the function below checks to see if an img was clicked on, if so it increases global totalClicks variable. also checks against the image source and if it matches, it increments that specific product's click count. tells page to render the randomized images, checks if the total clicks is the max clicks and if so, removes the event listener. also saves the clicked data to storage
+
 function handleProductClicks(event){
   if(event.target.tagName === 'IMG'){
     totalClicks++;
   }
 
   var targetSrc = event.target.getAttribute('src');
-  // debugger;
+
   for (var i = 0; i < Product.allProducts.length; i++){
 
     if(Product.allProducts[i].imgSrc === targetSrc)
@@ -136,27 +123,22 @@ function handleProductClicks(event){
 
   renderSomeRandomImages();
 
+  // when user gets to max clicks, remove the event listener and render the chart
+
   if(totalClicks === maxClicks){
     productImageSection.removeEventListener('click', handleProductClicks);
-    // renderResultsToList();
     renderTheChart();
   }
 
-
-
-  //----------------------------------------- SAVE THE GOODS TO LOCAL STORAGE
-  //1. stringify it
+  // save to local storage- first stringify, then setItem
 
   var stringyProductCollection = JSON.stringify(Product.allProducts);
-  // console.log('stringy array, fingers crossed', stringyProductCollection);
 
-  //2. save that shiz
   localStorage.setItem('storedProducts', stringyProductCollection);
-
-
 }
 
 //-------------------------------------------- RENDER IMAGES
+// uses the randomize function to choose a random product from 0 to the length of the array and assign it to three variables. first while loop checks to make sure there arent any duplicates in the three displayed, and if so it re-randomizes. after one assignment of the three random variables, those are passed to the randomImageIndexes array. the next while loops check the new variables against the array and if any match, it re-randomizes. this prevents any duplicates from showing up in the subsequent round.
 
 var randomImageIndexes = [];
 
@@ -186,27 +168,7 @@ function renderSomeRandomImages(){
 
   randomImageIndexes = [firstRandom, secondRandom, thirdRandom];
 
-
-  //   // 1.
-
-  //   var target = document.getElementById('images');
-  //   target.innerHTML = '';
-
-  //   // 2.
-  //   var imgLeft = document.createElement('img');
-  //   var textLeft = document.createElement('figcaption');
-
-  // // 2.5
-  //   var theIndexOfThisImage = randomImageIndexes[i]
-  //   var firstProduct = Product.Product.allProducts[randomImageIndexes[theIndexOfThisImage]];
-  //   imgLeft.src = firstProduct.imgSrc;
-  //   textLeft.textContent = firstProduct.productName;
-  //   firstProduct.shown++;
-
-  // if the above works once, need to put this in the loop, but move target.innerHTML outside the foor loop
-
-  // console.log(firstRandom, secondRandom, thirdRandom);
-
+  // targets the picture and caption elements, increases the shown count each time a specific one is chosen
   var imgLeft = document.getElementById('left');
   var targetNameLeft = document.getElementById('left-name');
   var imgMiddle = document.getElementById('middle');
@@ -231,24 +193,8 @@ function renderSomeRandomImages(){
 }
 renderSomeRandomImages();
 
-//-------------------------------------------------- RENDER RESULTS TO LIST
-
-// function renderResultsToList(){
-//   var list = document.getElementById('results-list');
-
-
-//   for (var i=0; i < Product.allProducts.length; i++){
-//     var listItem = document.createElement('li');
-
-//     listItem.textContent = (Product.allProducts[i].productName + ' product: ' + Product.allProducts[i].clicked + ' votes, displayed: ' + Product.allProducts[i].shown + ' times');
-
-//     list.appendChild(listItem);
-//   }
-// }
-
-
+// function below to render the chart, this is called above when total clicks equals max clicks
 function renderTheChart(){
-  // console.log('charting....charting.....');
 
 
   var productLabels = [];
@@ -262,13 +208,10 @@ function renderTheChart(){
     productShown.push(prod.shown);
   }
 
-
-  // var img = new Image();
-  // img.src = 'img/bag.jpg';
-  // img.onload = function() {
+  //------------------------------------------- MIXED CHART INFORMATION --------------
 
   var ctx = document.getElementById('myChart').getContext('2d');
-  // var fillPattern = ctx.createPattern(img, 'repeat');
+
   var mixedChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -277,14 +220,6 @@ function renderTheChart(){
         label: '# of clicks',
         data: productClicks,
         backgroundColor: [
-
-          //TODO- make the product image repeat the number of times it was clicked, to be the bar graph
-
-          //https://github.com/ashiguruma/patternomaly
-          // pattern.draw('diamond', '#cc65fe'),
-          // pattern.draw('diamond', '#cc65fe'),
-          // pattern.draw('diamond', '#cc65fe'),
-          // fillPattern,
           'rgba(235, 40, 19, 0.2)',
           'rgba(235, 40, 19, 0.2)',
           'rgba(235, 40, 19, 0.2)',
@@ -388,7 +323,6 @@ function renderTheChart(){
             max: 50,
             min: 0,
             stepSize: 1
-            // beginAtZero: true
           }
         }]
       }

@@ -4,15 +4,14 @@
 }
 
 header{
-  /* background-color: lightblue; */
-  /* border: solid black 1px; */
   margin: 20px 20px;
   width: 65%;
 }
 
 #header-image{
-  height: 100px;
-  width: 100px;
+  float: left;
+  height: 120px;
+  width: 120px;
 }
 
 #h-one{
@@ -22,7 +21,6 @@ header{
   font-family: 'MuseoModerno', cursive;
   /* https://codepen.io/juanbrujo/pen/yGpAK */
   color: #EB2813;
-    /* background-color: #d5d5d5; */
   letter-spacing: .05em;
   text-shadow: 
       4px 4px 0px #d5d5d5, 
@@ -38,30 +36,17 @@ header{
 }
 
 #h-two{
-  font-size: 40px;
+  font-size: 55px;
   font-family: 'MuseoModerno', cursive;
 }
-/* aside{ */
-  /* background-color: lightcoral; */
-  /* border: solid black 1px; */
-  /* box-sizing: border-box; */
-  /* width: 25%; */
-  /* margin: 10px 5px;
-  height: 550px;
-  padding: 10px;
-} */
 
-h2{
-  font-size: 25px;
-}
+/* ----------------------------------------------------------------------- */
 
 #product-images{
-  /* background-color: rgb(243, 243, 139); */
   box-sizing: border-box;
   width: 100%;
   margin-top: 10px;
   margin-left: 20px;
- 
 }
 
 figure{
@@ -102,11 +87,8 @@ figcaption{
 }
 
 #words{
-  /* background-color: rgb(243, 156, 243); */
-  /* border: solid black 1px; */
   margin: 40px 30px 20px 25px;
-  /* padding: 10px; */
-  width: 100;
+  width: 80;
 }
 
 p{
@@ -116,7 +98,6 @@ p{
 }
 
 footer{
-  /* background-color: lightseagreen; */
   width: 100%;
   margin: 30px 10px;
   font-size: 15px;
